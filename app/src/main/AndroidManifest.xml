@@ -10,8 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MBLTestApp">
         <activity
+            android:name=".GameActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
