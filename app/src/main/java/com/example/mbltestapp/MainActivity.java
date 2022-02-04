@@ -20,6 +20,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Timer;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         elements();
 
-        doBindService();
+        //doBindService();
     }
 
     @Override
@@ -72,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //startActivity(new Intent(MainActivity.this, GameActivity.class));
+                startActivity(new Intent(MainActivity.this, GameActivity.class));
 
-                get_generated_number();
+                //get_generated_number();
 
                 /*try {
                     Message msg = Message.obtain();
@@ -123,10 +125,9 @@ public class MainActivity extends AppCompatActivity {
             mMessenger = new Messenger(new IncomingHandler());
             //play_btn.setText("Attached.");
 
-            Toast.makeText(MainActivity.this, "connected",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "connected", Toast.LENGTH_SHORT).show();
 
-            try {
+            /*try {
                 Message msg = Message.obtain();
                 msg.what = 1;
                 msg.replyTo = mMessenger;
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (RemoteException e) {
                 // There is nothing special we need to do if the service
                 // has crashed.
-            }
+            }*/
         }
 
         public void onServiceDisconnected(ComponentName className) {
@@ -142,8 +143,7 @@ public class MainActivity extends AppCompatActivity {
             mService = null;
             //play_btn.setText("Disconnected.");
 
-            Toast.makeText(MainActivity.this, "disconnected",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "disconnected", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         bindService(new Intent(MainActivity.this,
                 DeviceService.class), mConnection, Context.BIND_AUTO_CREATE);
         mIsBound = true;
-        play_btn.setText("Binding.");
+        //play_btn.setText("Binding.");
     }
 
     void doUnbindService() {
@@ -160,31 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
             unbindService(mConnection);
             mIsBound = false;
-            play_btn.setText("Unbinding.");
+            //play_btn.setText("Unbinding.");
         }
     }
-
-    private void get_generated_number() {
-
-        new CountDownTimer(60000, 100) {
-            public void onTick(long millisUntilFinished) {
-
-                try {
-                    Message msg = Message.obtain();
-                    msg.what = 0X12;
-                    msg.replyTo = mMessenger;
-                    mService.send(msg);
-                } catch (RemoteException e) {
-                    // There is nothing special we need to do if the service
-                    // has crashed.
-                }
-
-            }
-
-            public void onFinish() {
-                play_btn.setText("done!");
-            }
-        }.start();
-    }
 }
-

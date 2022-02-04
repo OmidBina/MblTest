@@ -23,9 +23,7 @@ public class DeviceService extends Service {
 
     private static final String TAG = "DeviceService";
 
-    static final int MSG_UNREGISTER_CLIENT = 2;
-
-    static final int MSG_SET_VALUE = 3;
+    static final int MSG_SET_VALUE = 111;
 
     final Messenger mMessenger = new Messenger(new IncomingHandler());
 
@@ -70,34 +68,9 @@ public class DeviceService extends Service {
                     }
 
                     break;
-                case 11:
-                    Log.e(TAG, "handleMessage: " + msg.arg1);
-
-                    try {
-                        Message m = Message.obtain();
-                        m.what = MSG_SET_VALUE;
-                        m.arg1 = 12;
-                        msg.replyTo.send(m);
-                    } catch (RemoteException e) {
-                        Log.e(TAG, "handleMessage: ", e);
-                        // There is nothing special we need to do if the service
-                        // has crashed.
-                    }
-
-                    break;
-                case MSG_UNREGISTER_CLIENT:
-                    Log.e(TAG, "handleMessage: wdwdwd");
-                    break;
                 default:
                     super.handleMessage(msg);
             }
-
-            /*super.handleMessage(msg);
-
-            Bundle bundle = msg.getData();
-            String receivedData = bundle.getString("kkk");
-            Log.e(TAG, "handleMessage: " + receivedData);
-            Toast.makeText(getApplicationContext(), receivedData, Toast.LENGTH_SHORT).show();*/
         }
     }
 
