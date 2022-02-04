@@ -3,10 +3,13 @@ package com.example.mbltestapp;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 public class GameView extends SurfaceView implements Runnable  {
+
+    private static final String TAG = "GameView";
 
     private Thread thread;
 
@@ -123,9 +126,7 @@ public class GameView extends SurfaceView implements Runnable  {
         switch (event.getAction()){
 
             case MotionEvent.ACTION_DOWN:
-                 if (event.getX() < screenX / 2) {
-                     flight.isGoingUp = true;
-                 }
+                flight.isGoingUp = true;
                 break;
             case MotionEvent.ACTION_UP:
                 flight.isGoingUp = false;
